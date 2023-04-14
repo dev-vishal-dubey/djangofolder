@@ -25,10 +25,14 @@ SECRET_KEY = 'django-insecure-(r&s0uxg2$y_!^91f-6k**539^^iuj+#=l9vj&1s(iy8bd5ide
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
+
+
+SITE_ID = 1
+LOGIN_REDIRECT_URL = "/"
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -37,6 +41,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'zapp',
+    "django.contrib.sites", 
+    "allauth", 
+    "allauth.account", 
+    "allauth.socialaccount", 
+    "allauth.socialaccount.providers.google",
 ]
 
 MIDDLEWARE = [
@@ -121,3 +131,21 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': ['profile', 'email'],
+        'AUTH_PARAMS': {'access_type': 'online'},
+        'APP': {
+            'client_id': '622654369915-6hd1tmql60hgdqas6366apsvi7eeko0q.apps.googleusercontent.com',
+            'secret': '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',
+            'key': ''
+        }
+    }
+}
+
+#add this in the end of file
+AUTHENTICATION_BACKENDS = (
+   "django.contrib.auth.backends.ModelBackend",
+   "allauth.account.auth_backends.AuthenticationBackend",
+)
