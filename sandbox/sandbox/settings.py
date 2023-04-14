@@ -31,7 +31,7 @@ ALLOWED_HOSTS = ["*"]
 # Application definition
 
 
-SITE_ID = 1
+SITE_ID = 2
 LOGIN_REDIRECT_URL = "/"
 
 INSTALLED_APPS = [
@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "allauth.account", 
     "allauth.socialaccount", 
     "allauth.socialaccount.providers.google",
+    'allauth.socialaccount.providers.facebook',
 ]
 
 MIDDLEWARE = [
@@ -57,6 +58,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+   
 ]
 
 ROOT_URLCONF = 'sandbox.urls'
@@ -141,7 +143,37 @@ SOCIALACCOUNT_PROVIDERS = {
             'secret': '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',
             'key': ''
         }
+    },
+    'facebook': {
+        'METHOD': 'oauth2',
+        'SCOPE': ['email', 'public_profile'],
+        'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+        'INIT_PARAMS': {'cookie': True},
+        'FIELDS': [
+            'id',
+            'email',
+            'name',
+            'first_name',
+            'last_name',
+            'verified',
+            'locale',
+            'timezone',
+            'link',
+            'gender',
+            'updated_time',
+        ],
+        'EXCHANGE_TOKEN': True,
+        'VERSION': 'v11.0',
+        'APP': {
+            'client_id': '610468364435829',
+            'secret': '21a56dc28f9e66934736839b2d04f7f0',
+            'key': ''
+        }
     }
+
+    
+
+
 }
 
 #add this in the end of file
